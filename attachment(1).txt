@@ -1,0 +1,31 @@
+﻿import nltk
+import nltk.tokenize
+from itertools import islice
+class Phonetizer:
+ 
+    def geminate(self,word):
+        charArray=list(word)
+        i=0
+        lengt=charArray.__len__()
+        #print(lengt)
+        while lengt>0:
+            if self.isAmharicConsonant(charArray[i]):
+                pos=i
+                #print(pos)
+                if pos==0:
+                    charArray[i] = charArray[i]+"i"
+                if pos == charArray.__len__()-1:
+                    charArray[i] = charArray[i]
+                if pos==1 and (charArray.__len__()-2) == pos:
+                    charArray[i] = charArray[i]+"i"
+                fina=(charArray[charArray.__len__()-1])
+                if pos == (charArray.__len__()-2) and self.isAmharicConsonant(fina):
+                    if self.sonorityCheck(charArray[-2],charArray[-1]) is True:
+                        charArray[i]=charArray[i]+"i"
+            i += 1
+            lengt -= 1
+        gword=""
+        for i in charArray:
+            gword+=i
+        return gword
+    
